@@ -1,0 +1,16 @@
+{
+  "name": "ordens-meus-dividendos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js --ctmd --filePath=C:\\Users\\vinic\\Desktop\\transacoes_2020.csv"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async-csv": "^2.1.3",
+    "objects-to-csv": "^1.3.6"
+  }
+}
