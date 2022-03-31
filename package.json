@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js --ctmd --filePath=C:\\Users\\vinic\\Desktop\\transacoes_2020.csv"
+    "ctmd": "node index.js --ctmd --filePath=C:\\Users\\User\\Desktop\\projects\\ZweiDeveloper\\orders-to-meus-dividendos\\transacoes_US_2021.csv",
+    "cctmd": "node index.js --cctmd --filePath=C:\\Users\\User\\Desktop\\projects\\ZweiDeveloper\\orders-to-meus-dividendos\\crypto_transacoes_2021.csv"
   },
   "keywords": [],
   "author": "",

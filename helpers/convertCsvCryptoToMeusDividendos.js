@@ -3,22 +3,14 @@ const fs = require('fs');
 const { sep } = require('path');
 const ObjectsToCsv = require('objects-to-csv');
 
-const { ticketNamesUS } = require('./ticketNamesUS');
-
 const positions = Object.freeze({
   CORRETORA: 0,
-  TP_ORDEM: 1,
-  TICKET: 2,
-  TP_MERCADO: 3,
-  DT_COMPRA: 4,
-  QNTDD: 5,
-  VALOR_UNIT: 6,
-  VALOR_TTL: 7,
-  TX_LIQUIDACAO: 8,
-  TX_BOLSA: 9,
-  TX_CORRETORA: 10,
-  VALOR_TTL_C_TX: 11,
-  TP_ATIVO: 12,
+  TICKET: 1,
+  TP_ORDEM: 2,
+  DT_COMPRA: 3,
+  QNTDD: 4,
+  VALOR_UNIT: 5,
+  VALOR_TTL: 6,
 })
 
 async function parser(filePath) {
@@ -35,15 +27,17 @@ function replace(value) {
 /**
  * @param {[]} order 
  */
-function getValues(order, isUSTicket) {
-  const unitVlFinal = Number(replace(order[positions.VALOR_UNIT])).toFixed(5).replace('.', ',');
-  const expenditureFinal = (Number(replace(order[positions.TX_LIQUIDACAO])) +
-    Number(replace(order[positions.TX_CORRETORA])) +
-    Number(replace(order[positions.TX_BOLSA])))
-    .toFixed(5).replace('.', ',');
+function getValues(order) {
+  const unitVlFinal = Number(replace(order[positions.VALOR_UNIT])).toFixed(8).replace('.', ',');
+  const expenditureFinal = (0).toFixed(2).replace('.', ',');
+  const purchaseDt = order[positions.DT_COMPRA].split('/').reduce((agg, current) => {
+    if (current.length < 2) return [...agg, "0" + current];
+    return [...agg, current];
+  }, []).join('/');
+
   return [
-    isUSTicket ? ticketNamesUS[order[positions.TICKET]] : order[positions.TICKET],
-    order[positions.DT_COMPRA],
+    order[positions.TICKET],
+    purchaseDt,
     unitVlFinal,
     Number(order[positions.QNTDD]).toFixed(10).replace('.', ','),
     order[positions.TP_ORDEM] === 'C' ? 'Compra' : 'Venda',
@@ -51,14 +45,14 @@ function getValues(order, isUSTicket) {
   ]
 }
 
-async function execute(filePath, isUSTicket) {
+async function execute(filePath) {
   console.info('Started!');
   let orders = (await parser(filePath)).splice(1);
   orders = orders.filter(o => o[positions.TP_ORDEM] !== 'B' && o[positions.TP_ATIVO] !== 'RENDA FIXA');
   console.log(orders.length)
 
   let converted = orders.map((order, i) => {
-    let value = getValues(order, isUSTicket);
+    let value = getValues(order);
     console.log(i + 1, '-', orders.length);
     return value;
   });

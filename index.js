@@ -1,16 +1,22 @@
-const { fixValues, convertCsvToMeusDividendos } = require('./helpers');
+const { convertCsvToMeusDividendos, convertCsvCryptoToMeusDividendos } = require('./helpers');
 
-const listCommands = ['fv', 'ctmd'];
+const listCommands = ['ctmd', 'cctmd'];
 
-function help(){
+function help() {
   console.info('Default commands: fv, ctmd, filePath');
-  console.info('\t--fv -> fixValues\n\t--ctmd -> convert Csv To Meus Dividendos\n\t--filePath -> File location');
+  console.info(`
+    \t--ctmd -> convert Csv To Meus Dividendos
+    \n\t--cctmd -> convert Csv Crypto To Meus Dividendos
+    \n\t--filePath -> File location
+    \n\t--is-us-ticket -> is US ticket
+  `);
   console.info('Sample: node index.js --fv --filePath=C:\\Users\\vinic\\Desktop\\ordens.csv');
 }
 
 async function execute() {
   help();
   let filePath = process.argv.find(a => a.startsWith('--filePath'));
+  const isUSTicket = Boolean(process.argv.find(a => a.startsWith('--is-us-ticket')));
   let command = '';
 
   listCommands.forEach(lc => {
@@ -30,10 +36,10 @@ async function execute() {
 
   filePath = filePath.split(/=|\s/gm)[1];
 
-  if (command === '--fv') await fixValues(filePath);
-  else if (command === '--ctmd') await convertCsvToMeusDividendos(filePath);
+  if (command === '--ctmd') await convertCsvToMeusDividendos(filePath, isUSTicket);
+  else if (command === '--cctmd') await convertCsvCryptoToMeusDividendos(filePath);
 
 }
 
 execute()
-  .catch(e => console.error('Deu Merda!', e));
+  .catch(e => console.error(e));

@@ -1,7 +1,7 @@
-const fixValues = require('./fixValues');
 const convertCsvToMeusDividendos = require('./convertCsvToMeusDividendos');
+const convertCsvCryptoToMeusDividendos = require('./convertCsvCryptoToMeusDividendos');
 
 module.exports = {
-  fixValues,
   convertCsvToMeusDividendos,
+  convertCsvCryptoToMeusDividendos,
 }
