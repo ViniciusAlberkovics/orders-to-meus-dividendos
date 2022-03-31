@@ -59,7 +59,7 @@ async function execute(filePath) {
 
   console.log('generate file')
   let paths = filePath.split(/\\|\//gm);
-  paths[paths.length - 1] = 'import_' + paths[paths.length - 1];
+  paths[paths.length - 1] = ('import_' + paths[paths.length - 1]).replace('transacoes', 'meus_dividendos');
   let loc = paths.join(sep);
   await new ObjectsToCsv(converted).toDisk(loc, {});
 
