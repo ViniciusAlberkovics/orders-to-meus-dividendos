@@ -41,8 +41,13 @@ function getValues(order, isUSTicket) {
     Number(replace(order[positions.TX_CORRETORA])) +
     Number(replace(order[positions.TX_BOLSA])))
     .toFixed(5).replace('.', ',');
+
+  const ticketName = isUSTicket ? ticketNamesUS[order[positions.TICKET]] : order[positions.TICKET];
+
+  if (!ticketName) throw new Error(`Ticket Name not found: ${order[positions.TICKET]}`);
+
   return [
-    isUSTicket ? ticketNamesUS[order[positions.TICKET]] : order[positions.TICKET],
+    ticketName,
     order[positions.DT_COMPRA],
     unitVlFinal,
     Number(order[positions.QNTDD]).toFixed(10).replace('.', ','),
