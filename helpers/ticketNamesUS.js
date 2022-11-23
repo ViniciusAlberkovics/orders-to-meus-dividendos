@@ -3,4 +3,5 @@ exports.ticketNamesUS = {
   'QQQ': 'NASDAQ:QQQ',
   'METV': 'NYSE:METV',
   'VOO': 'NYSE:VOO',
+  'URA': 'NYSE:URA',
 }
