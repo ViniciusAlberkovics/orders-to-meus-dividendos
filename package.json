@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "br": "node index.js --ctmd --filePath=C:\\Users\\User\\Dropbox\\Investimento\\2022\\transacoes_2022.csv",
-    "us": "node index.js --ctmd --filePath=C:\\Users\\User\\Dropbox\\Investimento\\2022\\transacoes_US_2022.csv --is-us-ticket",
-    "crypto": "node index.js --cctmd --filePath=C:\\Users\\User\\Desktop\\projects\\ZweiDeveloper\\orders-to-meus-dividendos\\crypto_transacoes_2021.csv"
+    "br": "node index.js --ctmd --filePath=/Users/zweideveloper/Dropbox/Investimento/2023/transacoes_2023.csv",
+    "us": "node index.js --ctmd --filePath=/Users/zweideveloper/Dropbox/Investimento/2023/transacoes_US_2023.csv --is-us-ticket",
+    "crypto": "node index.js --cctmd --filePath=C:/Users/User/Desktop/projects/ZweiDeveloper/orders-to-meus-dividendos/crypto_transacoes_2021.csv"
   },
   "keywords": [],
   "author": "",
